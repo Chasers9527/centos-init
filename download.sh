@@ -22,7 +22,7 @@ tar zxf centos-init.tar.gz
 mv centos-init-master centos-init
 rm -f centos-init.tar.gz
 
-echo "ls /home/"
+ls /home/
 
 echo -e "${green}===> 下载完毕${nc}"
 echo ""
