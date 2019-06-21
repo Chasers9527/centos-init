@@ -27,7 +27,7 @@ function init_alias {
 
 function init_repositories {
     # 使用阿里更新源
-    rm -rf /etc/yum.repos.d/CentOS-Base.repo
+    mv -f /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
     wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
     wget -P /etc/yum.repos.d/ http://mirrors.aliyun.com/repo/epel-7.repo 
     yum clean all  
