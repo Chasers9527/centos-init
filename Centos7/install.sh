@@ -9,16 +9,13 @@ source ${CURRENT_DIR}/../common/common.sh
 MYSQL_ROOT_PASSWORD=`random_string`
 
 function init_system {
-    yum -y wget
-    export LC_ALL="en_US.UTF-8"
-    echo "LC_ALL=en_US.UTF-8" >> /etc/default/locale
-    locale-gen en_US.UTF-8
-    locale-gen zh_CN.UTF-8
-
-    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+    yum -y install wget
+    
+    # 英文和时区的修改
+    localectl  set-locale LANG=en_US.UTF-8
+    timedatectl  set-timezone Asia/Shanghai
 
     yum -y update
-
     init_alias
 }
 
