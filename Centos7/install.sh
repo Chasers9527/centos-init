@@ -106,7 +106,8 @@ call_function init_system "正在初始化系统" ${LOG_PATH}
     yum makecache
 
     # EPEL安装 + Nginx 
-    yum install -y yum-utils
+    yum remove -y yum-utils epel-release
+    yum install -y yum-utils epel-release
     
     # nodejs 10 RPM
     curl -sL https://rpm.nodesource.com/setup_10.x | bash -
@@ -124,9 +125,6 @@ call_function init_system "正在初始化系统" ${LOG_PATH}
     wget https://raw.githubusercontent.com/Chasers9527/centos-init/master/Centos7/config/nginx.repo
     mv -f nginx.repo /etc/yum.repos.d/nginx.repo
     yum-config-manager --enable nginx-mainline
-
-    #redis
-    yum -y install epel-release
 
     yum -y update
 # call_function init_repositories "正在初始化软件源" ${LOG_PATH}
