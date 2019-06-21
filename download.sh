@@ -14,7 +14,8 @@ nc="\e[0m"
 HOME="/home"
 
 echo -e "${green}===> 开始下载...${nc}"
-cd ${HOME}
+HOME="/home"
+cd "${HOME}"
 wget -q https://github.com/Chasers9527/centos-init/archive/master.zip -O centos-init.tar.gz
 rm -rf centos-init
 tar zxf centos-init.tar.gz
