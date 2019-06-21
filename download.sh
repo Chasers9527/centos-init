@@ -11,10 +11,10 @@ DISTRO=$(lsb_release -c -s)
 green="\e[1;32m"
 nc="\e[0m"
 
-HOME=$(/home/)
+HOME="/home"
 
 echo -e "${green}===> 开始下载...${nc}"
-cd $HOME
+cd ${HOME}
 wget -q https://github.com/Chasers9527/centos-init/archive/master.tar.gz -O centos-init.tar.gz
 rm -rf centos-init
 tar zxf centos-init.tar.gz
@@ -28,7 +28,7 @@ echo -e "${green}安装脚本位于： ${HOME}/centos-init${nc}"
     source ${HOME}/Centos7/common/ansi.sh
     ansi -n --bold --bg-yellow --black "当前账户并非 root，请用 root 账户执行安装脚本（使用命令：sudo -H -s 切换为 root）"
 } || {
-    bash /home/centos-init/Centos7/install.sh
+    bash ${HOME}/centos-init/Centos7/install.sh
 }
 
 cd - > /dev/null
