@@ -33,8 +33,8 @@ function init_repositories {
     yum clean all  
     yum makecache
 
-    # EPEL安装
-    yum install -y epel-release
+    # EPEL安装 + Nginx 
+    yum install -y epel-release yum-utils
     
     # nodejs 10 RPM
     curl -sL https://rpm.nodesource.com/setup_10.x | bash -
@@ -49,11 +49,11 @@ function init_repositories {
     
     # nginx 
     wget https://raw.githubusercontent.com/Chasers9527/centos-init/master/Centos7/config/nginx.repo
-    mv unit.repo /etc/yum.repos.d/nginx.repo
+    mv -f nginx.repo /etc/yum.repos.d/nginx.repo
     yum-config-manager --enable nginx-mainline
 
     #redis
-    yum install epel-release
+    yum -y install epel-release
 
     yum -y update
 }
