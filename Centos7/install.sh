@@ -41,7 +41,7 @@ function init_repositories {
     curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
 
     # mysql RPM
-    rpm -ivh https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+    rpm -ivh https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm --nosignature
 
     # php RPM
     rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm   
