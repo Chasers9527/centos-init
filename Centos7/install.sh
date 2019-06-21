@@ -113,7 +113,8 @@ call_function init_system "正在初始化系统" ${LOG_PATH}
     curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
 
     # mysql RPM
-    rpm -ivh https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm --nosignature
+    wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+    yum localinstall mysql57-community-release-el7-11.noarch.rpm
 
     # php RPM
     rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm   
