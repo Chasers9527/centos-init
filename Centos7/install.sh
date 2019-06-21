@@ -106,7 +106,7 @@ call_function init_system "正在初始化系统" ${LOG_PATH}
     yum makecache
 
     # EPEL安装 + Nginx 
-    yum install -y epel-release yum-utils
+    yum install -y yum-utils
     
     # nodejs 10 RPM
     curl -sL https://rpm.nodesource.com/setup_10.x | bash -
