@@ -51,7 +51,7 @@ function init_repositories {
     wget https://raw.githubusercontent.com/Chasers9527/centos-init/master/%20Centos7/config/unit.repo
     yum-config-manager --enable nginx-mainline
 
-    yum update
+    yum -y update
 }
 
 function install_basic_softwares {
