@@ -96,36 +96,7 @@ function install_composer {
 }
 
 call_function init_system "正在初始化系统" ${LOG_PATH}
- # 使用阿里更新源
-    mv -f /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
-    wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
-    wget -P /etc/yum.repos.d/ http://mirrors.aliyun.com/repo/epel-7.repo 
-    yum clean all  
-    yum makecache
-
-    # php RPM
-    rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm   
-    rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
-
-    # EPEL安装 + Nginx 
-    yum remove -y yum-utils epel-release
-    yum install -y yum-utils epel-release
-    
-    # nodejs 10 RPM
-    curl -sL https://rpm.nodesource.com/setup_10.x | bash -
-    curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
-
-    # mysql RPM
-    wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
-    yum -y localinstall mysql57-community-release-el7-11.noarch.rpm
-    
-    # nginx 
-    wget https://raw.githubusercontent.com/Chasers9527/centos-init/master/Centos7/config/nginx.repo
-    mv -f nginx.repo /etc/yum.repos.d/nginx.repo
-    yum-config-manager --enable nginx-mainline
-
-    yum -y update
-# call_function init_repositories "正在初始化软件源" ${LOG_PATH}
+call_function init_repositories "正在初始化软件源" ${LOG_PATH}
 call_function install_basic_softwares "正在安装基础软件" ${LOG_PATH}
 call_function install_php "正在安装 PHP" ${LOG_PATH}
 call_function install_others "正在安装 Mysql / Nginx / Redis / Sqlite3" ${LOG_PATH}
