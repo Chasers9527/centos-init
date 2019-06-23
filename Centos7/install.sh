@@ -52,8 +52,6 @@ function init_repositories {
     mv -f nginx.repo /etc/yum.repos.d/nginx.repo
     yum-config-manager --enable nginx-mainline
 
-    #redis
-    yum -y install epel-release
 
     yum -y update
 }
@@ -105,8 +103,12 @@ call_function init_system "正在初始化系统" ${LOG_PATH}
     yum clean all  
     yum makecache
 
+    # php RPM
+    rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm   
+    rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+
     # EPEL安装 + Nginx 
-    yum remove -y yum-utils epel-release
+    # yum remove -y yum-utils epel-release
     yum install -y yum-utils epel-release
     
     # nodejs 10 RPM
@@ -116,10 +118,6 @@ call_function init_system "正在初始化系统" ${LOG_PATH}
     # mysql RPM
     wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
     yum localinstall mysql57-community-release-el7-11.noarch.rpm
-
-    # php RPM
-    rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm   
-    rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
     
     # nginx 
     wget https://raw.githubusercontent.com/Chasers9527/centos-init/master/Centos7/config/nginx.repo
