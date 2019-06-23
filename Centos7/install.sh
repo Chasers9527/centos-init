@@ -108,7 +108,7 @@ call_function init_system "正在初始化系统" ${LOG_PATH}
     rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 
     # EPEL安装 + Nginx 
-    # yum remove -y yum-utils epel-release
+    yum remove -y yum-utils epel-release
     yum install -y yum-utils epel-release
     
     # nodejs 10 RPM
@@ -117,7 +117,7 @@ call_function init_system "正在初始化系统" ${LOG_PATH}
 
     # mysql RPM
     wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
-    yum localinstall mysql57-community-release-el7-11.noarch.rpm
+    yum -y localinstall mysql57-community-release-el7-11.noarch.rpm
     
     # nginx 
     wget https://raw.githubusercontent.com/Chasers9527/centos-init/master/Centos7/config/nginx.repo
