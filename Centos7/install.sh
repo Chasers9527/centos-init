@@ -95,6 +95,11 @@ function install_composer {
     sudo -H -u ${WWW_USER} sh -c  'cd ~ && composer config -g repo.packagist composer https://packagist.laravel-china.org'
 }
 
+function install_zsh {
+    yum install -y zsh
+    sh -c "$(wget -O- https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+}
+
 call_function init_system "正在初始化系统" ${LOG_PATH}
 call_function init_repositories "正在初始化软件源" ${LOG_PATH}
 call_function install_basic_softwares "正在安装基础软件" ${LOG_PATH}
@@ -102,6 +107,7 @@ call_function install_php "正在安装 PHP" ${LOG_PATH}
 call_function install_others "正在安装 Mysql / Nginx / Redis / Sqlite3" ${LOG_PATH}
 call_function install_node_yarn "正在安装 Nodejs / Yarn" ${LOG_PATH}
 call_function install_composer "正在安装 Composer" ${LOG_PATH}
+call_function install_zsh "正在安装 oh-my-zsh&Zsh-" ${LOG_PATH}
 
 ansi --green --bold -n "安装完毕"
 ansi --green --bold "Mysql root 密码查看方式：" `grep 'temporary password' /var/log/mysqld.log`

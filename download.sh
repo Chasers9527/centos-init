@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# install lsb_release
+yum install redhat-lsb -y
+
 { # this ensures the entire script is downloaded #
 
 lsb_release -d | grep 'CentOS' >& /dev/null
