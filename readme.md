@@ -1,6 +1,8 @@
 ## 简介
 
-适用于 Centos 的 LNMP 安装脚本，并设置了国内镜像加速。
+适用于 Centos7 的 LNMP 安装脚本，并设置了国内镜像加速。
+
+仿照 [summerblue/laravel-ubuntu-init](https://github.com/summerblue/laravel-ubuntu-init) 所写
 
 请确保所有命令都以 root 账户执行，如果登录账户不是 root，则需要执行 `sudo -H -s` 切换为 root 账户后再下载安装。
 
@@ -12,7 +14,7 @@
 * MySQL 5.7
 * Sqlite3
 * Composer
-* Nodejs 10
+* Nodejs 12
 * Yarn
 * Redis 5
 

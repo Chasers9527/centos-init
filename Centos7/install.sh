@@ -36,16 +36,22 @@ function init_repositories {
     # EPEL安装 + Nginx 
     yum install -y epel-release yum-utils
     
-    # nodejs 10 RPM
-    curl -sL https://rpm.nodesource.com/setup_10.x | bash -
+    # nodejs 12 RPM
+    curl -sL https://rpm.nodesource.com/setup_12.x | bash -
     curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
 
     # mysql RPM
-    rpm -ivh https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm --nosignature
-
+    if [ -z "$(rpm -qa | grep mysql57-community)" ] ; then
+        rpm -ivh https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+    fi
     # php RPM
-    rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm   
-    rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+    if [ -z "$(rpm -qa | grep epel-release)" ] ; then
+        rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm   
+    fi
+
+    if [ -z "$(rpm -qa | grep webtatic)" ] ; then
+        rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+    fi
     
     # nginx 
     wget https://raw.githubusercontent.com/Chasers9527/centos-init/master/Centos7/config/nginx.repo
@@ -62,7 +68,12 @@ function install_basic_softwares {
 }
 
 function install_node_yarn {
-    yum install -y nodejs yarn
+    if ![ -x "$(command -v node)"]; then
+        yum install -y nodejs
+    fi
+    if ![ -x "$(command -v yarn)"]; then
+        yum install -y yarn
+    fi
     sudo -H -u ${WWW_USER} sh -c 'cd ~ && yarn config set registry https://registry.npm.taobao.org'
     sudo -H -u ${WWW_USER} sh -c 'cd ~ && npm config set registry https://registry.npm.taobao.org'
 }
@@ -78,11 +89,15 @@ function install_php {
 }
 
 function install_others {
-    yum remove -y apache2
+
+    if [ -x "$(command -v apache2)"]; then
+        yum remove -y apache2
+    fi
     
     # 关闭 mysql 80 使用 mysql 5.7
-    yum install -y mysql-community-server
-
+    if ![ -x "$(command -v mysqld)"]; then
+        yum install -y mysql-community-server
+    fi
     yum install -y nginx redis sqlite-devel
     chown -R ${WWW_USER}.${WWW_USER_GROUP} /var/www/
     systemctl enable nginx.service mysqld
@@ -99,11 +114,10 @@ function install_zsh {
     yum install -y zsh
     sh -c "$(wget -O- https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 }
-
-call_function init_system "正在初始化系统" ${LOG_PATH}
-call_function init_repositories "正在初始化软件源" ${LOG_PATH}
-call_function install_basic_softwares "正在安装基础软件" ${LOG_PATH}
-call_function install_php "正在安装 PHP" ${LOG_PATH}
+# call_function init_system "正在初始化系统" ${LOG_PATH}
+# call_function init_repositories "正在初始化软件源" ${LOG_PATH}
+# call_function install_basic_softwares "正在安装基础软件" ${LOG_PATH}
+# call_function install_php "正在安装 PHP" ${LOG_PATH}
 call_function install_others "正在安装 Mysql / Nginx / Redis / Sqlite3" ${LOG_PATH}
 call_function install_node_yarn "正在安装 Nodejs / Yarn" ${LOG_PATH}
 call_function install_composer "正在安装 Composer" ${LOG_PATH}
